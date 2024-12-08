@@ -1,0 +1,61 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Items{% endblock %}
+
+{% block content %}
+    <div class="pb-6 grid grid-cols-4 gap-6 bg-gray-50 min-h-screen px-6">
+        <!-- Sidebar -->
+        <div class="col-span-1 bg-white shadow-md rounded-xl p-6">
+            <form method="get" action="{% url 'item:items' %}">
+                <input name="query" 
+                       class="w-full py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" 
+                       type="text" 
+                       value="{{ query }}" 
+                       placeholder="Search for a book...">
+                <button class="w-full mt-4 py-3 text-lg bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-200">Search</button>
+            </form>
+
+            <hr class="my-6 border-gray-300">
+
+            <p class="font-semibold text-lg text-gray-700 mb-4">Categories</p>
+            <ul class="space-y-2">
+                {% for category in categories %}
+                    <li class="py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-200 {% if category.id == category_id %} bg-gray-200 {% endif %}">
+                        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" 
+                           class="text-gray-800 hover:text-teal-500">
+                           {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <hr class="my-6 border-gray-300">
+
+            <p class="font-semibold text-lg text-gray-700 mb-4">Clear Filters</p>
+            <a href="{% url 'item:items' %}" 
+               class="block w-full text-center py-3 bg-yellow-500 text-lg rounded-lg text-white hover:bg-yellow-600 transition duration-200">
+               Clear
+            </a>
+        </div>
+
+        <!-- Items Section -->
+        <div class="col-span-3">
+            <div class="grid grid-cols-3 gap-6">
+                {% for item in items %}
+                    <div class="shadow-lg rounded-xl bg-white overflow-hidden hover:scale-105 transform transition duration-300">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                                <img src="{{ item.image.url }}" 
+                                     class="w-full h-full object-contain"> <!-- Ensures the entire image fits inside the box -->
+                            </div>
+                            <div class="p-6">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ item.name }}</h2>
+                                <p class="text-teal-600 text-lg font-bold">Price: €{{ item.price }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

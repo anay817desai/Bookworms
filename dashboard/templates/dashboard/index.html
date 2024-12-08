@@ -1,0 +1,41 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="mt-12 px-8 py-12" style="background-color: #cca43b; min-height: 100vh;">
+    <!-- Header -->
+    <h2 class="mb-8 text-3xl font-bold text-center text-white">My Items</h2>
+
+    <!-- Items Grid -->
+    <div class="grid grid-cols-3 gap-6">
+        {% for item in items %}
+            <div class="bg-white shadow-lg rounded-xl hover:scale-105 transform transition duration-300 overflow-hidden">
+                <a href="{% url 'item:detail' item.id %}">
+                    <!-- Item Image -->
+                    <div class="bg-gray-100 h-48 flex items-center justify-center">
+                        <img src="{{ item.image.url }}" class="w-full h-full object-contain">
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-2">{{ item.name }}</h2>
+                        <p class="text-teal-600 text-sm font-bold">Price: €{{ item.price }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- No Items Message -->
+    {% if not items %}
+        <div class="mt-12 text-center">
+            <p class="text-white text-lg">You have no items yet. Start adding some!</p>
+            <a href="{% url 'item:create' %}" 
+               class="mt-6 inline-block px-6 py-3 text-lg font-semibold bg-white text-gray-800 rounded-lg hover:bg-gray-200 transition duration-200">
+               Add Item
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com', 'https://650f98516abf452397df68e6e53be946.vfs.cloud9.eu-west-1.amazonaws.com']
 
+LOGIN_URL= '/login/'
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookstore',
     'item',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
