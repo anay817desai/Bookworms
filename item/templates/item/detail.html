@@ -4,79 +4,79 @@
 
 {% block content %}
 
-<div class="grid grid-cols-5 gap-8 py-6 px-6 bg-gray-50 min-h-screen">
-    <!-- Item Image -->
-    <div class="col-span-3">
-        <div class="bg-white shadow-md rounded-xl overflow-hidden">
+<div class="container mx-auto mt-12 py-6 px-6 bg-gray-50 min-h-screen">
+    <!-- Item Image Section -->
+    <div class="grid grid-cols-5 gap-8">
+        <div class="col-span-3 bg-white shadow-md rounded-xl overflow-hidden">
             <img src="{{ item.image.url }}" class="w-full h-auto object-contain">
         </div>
-    </div>
-    
-    <!-- Item Details -->
-    <div class="col-span-2 p-8 bg-white shadow-md rounded-xl">
-        <h1 class="mb-4 text-3xl font-bold text-gray-800">{{ item.name }}</h1>
-        <p class="mb-4 text-lg text-teal-600 font-semibold"><strong>Price:</strong> €{{ item.price }}</p>
-        <p class="mb-6 text-gray-600"><strong>Seller:</strong> {{ item.created_by.username }}</p>
         
-        {% if item.description %}
-            <p class="text-gray-700">
-                <strong class="text-gray-500">Description:</strong><br>
-                {{ item.description }}
-            </p>
-        {% endif %}
-        
-        <!-- Action Buttons -->
-        <div class="mt-6">
-            {% if request.user == item.created_by %}
-                <div class="p-4 bg-gray-100 rounded-lg">
-                    <p class="text-teal-600 font-semibold">This is your item!</p>
-                    <div class="mt-4 space-x-4">
-                        <a href="{% url 'item:edit' item.id %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-200">Edit</a>
-                        <a href="{% url 'item:delete' item.id %}" class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">Delete</a>
-                    </div>
-                </div>
-            {% else %}
-                <a href="#" class="block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-200 text-center">
-                    Contact Seller
-                </a>
+        <!-- Item Details Section -->
+        <div class="col-span-2 p-8 bg-white shadow-md rounded-xl">
+            <h1 class="mb-4 text-3xl font-bold text-gray-800">{{ item.name }}</h1>
+            <p class="mb-4 text-2xl text-teal-600 font-bold"><strong>Price:</strong> €{{ item.price }}</p>
+            <p class="mb-6 text-lg text-gray-600"><strong>Seller:</strong> {{ item.created_by.username }}</p>
+            
+            {% if item.description %}
+                <p class="text-gray-700 text-xl">
+                    <strong class="text-gray-500">Description:</strong><br>
+                    {{ item.description }}
+                </p>
             {% endif %}
+            
+            <!-- Action Buttons -->
+            <div class="mt-6">
+                {% if request.user == item.created_by %}
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <p class="text-teal-600 font-semibold">This is your item!</p>
+                        <div class="mt-4 space-x-4">
+                            <a href="{% url 'item:edit' item.id %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-200">Edit</a>
+                            <a href="{% url 'item:delete' item.id %}" class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">Delete</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="#" class="block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-200 text-center">
+                        Buy Now
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Related Items Section -->
-<div class="mt-12 px-6 py-12 bg-gray-100 rounded-xl shadow-md">
-    <h2 class="mb-8 text-2xl font-bold text-center text-gray-800">Related Items</h2>
-    <div class="grid grid-cols-3 gap-6">
-        {% for item in related_items %}
-            <div class="bg-white shadow-md rounded-xl hover:scale-105 transform transition duration-300">
-                <a href="{% url 'item:detail' item.id %}">
-                    <img src="{{ item.image.url }}" class="w-full h-48 object-contain rounded-t-xl">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">{{ item.name }}</h2>
-                        <p class="text-teal-600 text-sm font-bold">Price: €{{ item.price }}</p>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+    <!-- Related Items Section -->
+    <div class="mt-12 px-6 py-12 bg-gray-100 rounded-xl shadow-md">
+        <h2 class="mb-8 text-2xl font-bold text-center text-gray-800">Related Items</h2>
+        <div class="grid grid-cols-3 gap-6">
+            {% for item in related_items %}
+                <div class="bg-white shadow-md rounded-xl hover:scale-105 transform transition duration-300">
+                    <a href="{% url 'item:detail' item.id %}">
+                        <img src="{{ item.image.url }}" class="w-full h-48 object-contain rounded-t-xl">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold text-gray-800">{{ item.name }}</h2>
+                            <p class="text-teal-600 text-sm font-bold">Price: €{{ item.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
 
-<!-- Categories Section -->
-<div class="mt-12 px-6 py-12 bg-gray-100 rounded-xl shadow-md">
-    <h2 class="mb-8 text-2xl font-bold text-center text-gray-800">Categories</h2>
-    <div class="grid grid-cols-3 gap-6">
-        {% for category in categories %}
-            <div class="bg-white shadow-md rounded-xl hover:scale-105 transform transition duration-300">
-                <a href="#">
-                    <div class="p-6">
-                        <h2 class="text-lg font-semibold text-gray-800">{{ category.name }}</h2>
-                        <p class="text-gray-500">{{ category.items.count }} items</p>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+    <!-- Categories Section -->
+    <div class="mt-12 px-6 py-12 bg-gray-100 rounded-xl shadow-md">
+        <h2 class="mb-8 text-2xl font-bold text-center text-gray-800">Categories</h2>
+        <div class="grid grid-cols-3 gap-6">
+            {% for category in categories %}
+                <div class="bg-white shadow-md rounded-xl hover:scale-105 transform transition duration-300">
+                    <a href="#">
+                        <div class="p-6">
+                            <h2 class="text-lg font-bold text-gray-800">{{ category.name }}</h2>
+                            <p class="text-gray-500">{{ category.items.count }} items</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
 
+</div>
 {% endblock %}

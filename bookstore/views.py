@@ -7,7 +7,7 @@ def index(request):
     """
     View to render the home page with categories and the latest items.
     """
-    items = Item.objects.filter(is_sold=False)[:6]
+    items = Item.objects.filter(is_sold=False)[:9]
     categories = Category.objects.all()
     
     return render(request, 'bookstore/index.html', {
