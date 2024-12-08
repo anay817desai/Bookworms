@@ -6,17 +6,17 @@ phases:
       python: 3.9
     commands:
       - pip install --upgrade pip
-      - pip install -r requirements.txt pylint
-      - pip install pylint 
+      - pip install -r requirements.txt
+      - pip install pylint
 
   pre_build:
     commands:
       - echo "Building the project..."
       - python --version
-      - pylint $CODEBUILD_SRC_DIR/*.py || true 
-      - pylint $CODEBUILD_SRC_DIR/itemproj/*.py || true 
-      - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/bookstore/*.py || true 
+      - pylint $CODEBUILD_SRC_DIR/*.py || true
+      - pylint $CODEBUILD_SRC_DIR/itemproj/*.py || true
+      - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/bookstore/*.py || true
 
 artifacts:
   files:
-    - '/*'
+    - '/*'
