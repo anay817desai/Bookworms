@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-k98^a_=b2o1gm$ck&$z2fns!%2526(i&tzbp=opxmh4ia%(9(#
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com', 'https://650f98516abf452397df68e6e53be946.vfs.cloud9.eu-west-1.amazonaws.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.mydomain.com',
+    'https://650f98516abf452397df68e6e53be946.vfs.cloud9.eu-west-1.amazonaws.com',
+]
 
 LOGIN_URL= '/login/'
 LOGIN_REDIRECT_URL ='/'
